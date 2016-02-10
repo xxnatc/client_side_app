@@ -39,4 +39,8 @@ gulp.task('webpack:dev', () => {
 
 gulp.task('build:dev', ['html:dev', 'webpack:dev']);
 
+gulp.task('watch', () => {
+  gulp.watch('./app/*', ['build:dev']);
+});
+
 gulp.task('default', ['lint', 'build:dev']);

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Current Time App</title>
     <style>
-      h1, h3 {
+      h1, h3, h5 {
         font-family: monospace;
         font-weight: normal;
         text-align: center;
@@ -15,11 +15,33 @@
         margin-top: 120px;
         margin-bottom: 0px;
       }
+      .choose-timezone {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        background-color: rgba(200, 200, 200, 0.2);
+        padding-top: 0.3rem;
+        padding-bottom: 1rem;
+      }
+      .choose-timezone h5 {
+        margin-bottom: 0.5rem;
+      }
     </style>
   </head>
-  <body>
-    <h1 id="current-time"></h1>
-    <h3 id="time-hex"></h3>
+
+  <body data-ng-app="timeApp">
+    <main data-ng-controller="timeController">
+      <h1>{{currentTime}}</h1>
+      <h3>{{timeHex}}</h3>
+      <h3>Current timezone: UTC{{timezone}}</h3>
+      <aside class="choose-timezone">
+        <h5>Change the displaying timezone (Timezones range from UTC-12 to UTC+14):</h5>
+        <button ng-click="timezoneBackward()" type="button" name="minus 1">-1</button>
+        <button ng-click="timezoneForward()" type="button" name="plus 1">+1</button>
+      </aside>
+    </main>
     <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
   </body>
 </html>
