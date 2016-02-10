@@ -5,6 +5,20 @@ const timeApp = angular.module('timeApp', []);
 
 timeApp.controller('timeController', ['$scope', ($scope) => {
   var timezone = moment().utcOffset() / 60;
+  // save instances of setInterval to avoid lag
+  var updateInterval;
+
+  $scope.timezoneBackward = () => {
+    timezone -= 1;
+    if (timezone < -12) timezone = 14;
+    restartUpdate();
+  };
+
+  $scope.timezoneForward = () => {
+    timezone += 1;
+    if (timezone > 14) timezone = -12;
+    restartUpdate();
+  };
 
   function decToHex(str) {
     return ('0' + parseInt(str).toString(16)).slice(-2);
@@ -23,21 +37,15 @@ timeApp.controller('timeController', ['$scope', ($scope) => {
     document.body.style.backgroundColor = timeHex;
   }
 
-  $scope.timezoneBackward = () => {
-    timezone -= 1;
-    if (timezone < -12) timezone = 14;
-  };
+  function restartUpdate() {
+    updateTime();
+    clearInterval(updateInterval);
+    updateInterval = setInterval(() => {
+      $scope.$apply(() => {
+        updateTime();
+      });
+    }, 1000);
+  }
 
-  $scope.timezoneForward = () => {
-    timezone += 1;
-    if (timezone > 14) timezone = -12;
-  };
-
-  updateTime();
-
-  setInterval(() => {
-    $scope.$apply(() => {
-      updateTime();
-    });
-  }, 1000);
+  restartUpdate();
 }]);
