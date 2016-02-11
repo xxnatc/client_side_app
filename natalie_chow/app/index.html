@@ -9,10 +9,10 @@
   <body data-ng-app="timeApp">
     <main data-ng-controller="timeController">
       <h1>{{currentTime}}</h1>
-      <h3>{{timeHex}}</h3>
-      <h3>Current timezone: UTC{{timezone}}</h3>
+      <p class="subhead">{{timeHex}}</p>
       <aside class="choose-timezone">
-        <h5>Change the displaying timezone (Timezones range from UTC-12 to UTC+14):</h5>
+        <p class="subhead">Current timezone: UTC{{timezone}}</p>
+        <p class="timezone-desc">Change the displaying timezone (Timezones range from UTC-12 to UTC+14):</p>
         <button ng-click="timezoneBackward()" type="button" name="minus 1">-1</button>
         <button ng-click="timezoneForward()" type="button" name="plus 1">+1</button>
       </aside>
